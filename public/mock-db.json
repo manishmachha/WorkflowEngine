@@ -1,0 +1,3496 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-01T09:00:00Z",
+    "schemaVersion": 1,
+    "notes": "Mock data for Workflow Engine \u2014 session-only. All CRUD mutates in memory."
+  },
+  "departments": [
+    {
+      "id": "water",
+      "code": "WATER",
+      "name": "Water Utility"
+    },
+    {
+      "id": "power",
+      "code": "POWER",
+      "name": "Power Distribution"
+    },
+    {
+      "id": "municipal",
+      "code": "MUN",
+      "name": "Municipal Services"
+    }
+  ],
+  "roles": [
+    {
+      "id": "r1",
+      "code": "admin",
+      "name": "System Administrator"
+    },
+    {
+      "id": "r2",
+      "code": "designer",
+      "name": "Workflow Designer"
+    },
+    {
+      "id": "r3",
+      "code": "engineer",
+      "name": "Junior Engineer"
+    },
+    {
+      "id": "r4",
+      "code": "supervisor",
+      "name": "Supervisor"
+    },
+    {
+      "id": "r5",
+      "code": "departmentHead",
+      "name": "Department Head"
+    },
+    {
+      "id": "r6",
+      "code": "field",
+      "name": "Field Worker"
+    },
+    {
+      "id": "r7",
+      "code": "inspector",
+      "name": "Inspector"
+    },
+    {
+      "id": "r8",
+      "code": "citizen",
+      "name": "Citizen"
+    },
+    {
+      "id": "r9",
+      "code": "finance",
+      "name": "Finance Officer"
+    }
+  ],
+  "users": [
+    {
+      "id": "u1",
+      "displayName": "Anita Rao",
+      "email": "anita@amigo.local",
+      "roles": [
+        "admin",
+        "designer",
+        "supervisor"
+      ],
+      "departmentId": "water",
+      "active": true
+    },
+    {
+      "id": "u2",
+      "displayName": "Rahul Iyer",
+      "email": "rahul@amigo.local",
+      "roles": [
+        "engineer"
+      ],
+      "departmentId": "water",
+      "zone": "Z1",
+      "reportingManagerId": "u3",
+      "active": true
+    },
+    {
+      "id": "u3",
+      "displayName": "Priya Nair",
+      "email": "priya@amigo.local",
+      "roles": [
+        "supervisor",
+        "departmentHead"
+      ],
+      "departmentId": "water",
+      "zone": "Z1",
+      "active": true
+    },
+    {
+      "id": "u4",
+      "displayName": "Suresh Kumar",
+      "email": "suresh@amigo.local",
+      "roles": [
+        "field"
+      ],
+      "departmentId": "water",
+      "zone": "Z1",
+      "district": "Hyderabad",
+      "reportingManagerId": "u3",
+      "active": true
+    },
+    {
+      "id": "u5",
+      "displayName": "Lakshmi Menon",
+      "email": "lakshmi@amigo.local",
+      "roles": [
+        "field"
+      ],
+      "departmentId": "water",
+      "zone": "Z2",
+      "district": "Warangal",
+      "reportingManagerId": "u3",
+      "active": true
+    },
+    {
+      "id": "u6",
+      "displayName": "Vikram Shah",
+      "email": "vikram@amigo.local",
+      "roles": [
+        "inspector"
+      ],
+      "departmentId": "water",
+      "active": true
+    },
+    {
+      "id": "u7",
+      "displayName": "Neha Gupta",
+      "email": "neha@amigo.local",
+      "roles": [
+        "citizen"
+      ],
+      "departmentId": "water",
+      "district": "Hyderabad",
+      "active": true
+    },
+    {
+      "id": "u8",
+      "displayName": "Arjun Reddy",
+      "email": "arjun@amigo.local",
+      "roles": [
+        "engineer"
+      ],
+      "departmentId": "power",
+      "zone": "P1",
+      "reportingManagerId": "u3",
+      "active": true
+    },
+    {
+      "id": "u9",
+      "displayName": "Meera Iyer",
+      "email": "meera@amigo.local",
+      "roles": [
+        "finance"
+      ],
+      "departmentId": "water",
+      "active": true
+    },
+    {
+      "id": "u10",
+      "displayName": "Ravi Verma",
+      "email": "ravi@amigo.local",
+      "roles": [
+        "field"
+      ],
+      "departmentId": "water",
+      "zone": "Z3",
+      "district": "Karimnagar",
+      "active": false
+    }
+  ],
+  "delegations": [
+    {
+      "id": "del1",
+      "fromUserId": "u3",
+      "toUserId": "u1",
+      "from": "2026-09-01",
+      "to": "2026-09-10",
+      "reason": "Priya on leave \u2014 Anita covering supervisor duties",
+      "active": true
+    },
+    {
+      "id": "del2",
+      "fromUserId": "u6",
+      "toUserId": "u1",
+      "from": "2026-09-15",
+      "to": "2026-09-20",
+      "reason": "Vikram travelling for inspector convention",
+      "active": true
+    }
+  ],
+  "escalations": [
+    {
+      "id": "esc1",
+      "name": "Default two-tier",
+      "levels": [
+        {
+          "afterMinutes": 60,
+          "target": "reportingManager",
+          "notify": [
+            "inApp",
+            "email"
+          ]
+        },
+        {
+          "afterMinutes": 240,
+          "target": "departmentHead",
+          "notify": [
+            "inApp",
+            "email",
+            "sms"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "esc2",
+      "name": "High-severity fast",
+      "levels": [
+        {
+          "afterMinutes": 15,
+          "target": "reportingManager",
+          "notify": [
+            "inApp",
+            "sms"
+          ]
+        },
+        {
+          "afterMinutes": 45,
+          "target": "departmentHead",
+          "notify": [
+            "inApp",
+            "email",
+            "sms",
+            "push"
+          ]
+        },
+        {
+          "afterMinutes": 90,
+          "target": "fixedRole",
+          "role": "admin",
+          "notify": [
+            "inApp",
+            "email",
+            "sms"
+          ]
+        }
+      ]
+    }
+  ],
+  "calendars": [
+    {
+      "id": "cal1",
+      "name": "India National",
+      "timezone": "Asia/Kolkata",
+      "holidays": [
+        {
+          "date": "2026-01-26",
+          "label": "Republic Day"
+        },
+        {
+          "date": "2026-08-15",
+          "label": "Independence Day"
+        },
+        {
+          "date": "2026-10-02",
+          "label": "Gandhi Jayanti"
+        },
+        {
+          "date": "2026-12-25",
+          "label": "Christmas"
+        }
+      ],
+      "workingDays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "cal2",
+      "name": "Telangana Regional",
+      "timezone": "Asia/Kolkata",
+      "holidays": [
+        {
+          "date": "2026-06-02",
+          "label": "Telangana Formation Day"
+        },
+        {
+          "date": "2026-08-30",
+          "label": "Bonalu"
+        }
+      ],
+      "workingDays": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "id": "complaint-intake",
+      "version": 1,
+      "name": "File a Complaint",
+      "description": "Citizen intake form for a new service complaint.",
+      "fields": [
+        {
+          "id": "category",
+          "name": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Leakage",
+              "value": "leakage"
+            },
+            {
+              "label": "No supply",
+              "value": "no_supply"
+            },
+            {
+              "label": "Contamination",
+              "value": "contamination"
+            },
+            {
+              "label": "Billing",
+              "value": "billing"
+            }
+          ]
+        },
+        {
+          "id": "district",
+          "name": "district",
+          "label": "District",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Hyderabad",
+              "value": "Hyderabad"
+            },
+            {
+              "label": "Warangal",
+              "value": "Warangal"
+            },
+            {
+              "label": "Karimnagar",
+              "value": "Karimnagar"
+            }
+          ]
+        },
+        {
+          "id": "address",
+          "name": "address",
+          "label": "Street / Landmark",
+          "type": "text",
+          "required": true
+        },
+        {
+          "id": "description",
+          "name": "description",
+          "label": "Describe the issue",
+          "type": "textarea",
+          "required": true,
+          "placeholder": "When did it start? How severe?"
+        },
+        {
+          "id": "contactPhone",
+          "name": "contactPhone",
+          "label": "Contact phone",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "id": "complaint-triage",
+      "version": 1,
+      "name": "Complaint Triage",
+      "description": "Junior engineer reviews and classifies the complaint.",
+      "fields": [
+        {
+          "id": "severity",
+          "name": "severity",
+          "label": "Severity",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Low",
+              "value": "low"
+            },
+            {
+              "label": "Medium",
+              "value": "medium"
+            },
+            {
+              "label": "High",
+              "value": "high"
+            },
+            {
+              "label": "Critical",
+              "value": "critical"
+            }
+          ],
+          "help": "High or Critical routes through Finance + Technical approvals in parallel."
+        },
+        {
+          "id": "estimatedCost",
+          "name": "estimatedCost",
+          "label": "Estimated cost (\u20b9)",
+          "type": "number",
+          "required": true
+        },
+        {
+          "id": "assessment",
+          "name": "assessment",
+          "label": "Assessment notes",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "approval-comments",
+      "version": 1,
+      "name": "Approval Comments",
+      "description": "Optional remarks for the approval decision.",
+      "fields": [
+        {
+          "id": "comments",
+          "name": "comments",
+          "label": "Comments",
+          "type": "textarea",
+          "placeholder": "Anything the next step should know?"
+        },
+        {
+          "id": "attachmentUrl",
+          "name": "attachmentUrl",
+          "label": "Attachment link",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "id": "rejection-reason",
+      "version": 1,
+      "name": "Rejection Reason",
+      "description": "Explain why this step is being rejected.",
+      "fields": [
+        {
+          "id": "rejectionCategory",
+          "name": "rejectionCategory",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Budget",
+              "value": "budget"
+            },
+            {
+              "label": "Missing information",
+              "value": "missing_info"
+            },
+            {
+              "label": "Duplicate case",
+              "value": "duplicate"
+            },
+            {
+              "label": "Other",
+              "value": "other"
+            }
+          ]
+        },
+        {
+          "id": "rejectionReason",
+          "name": "rejectionReason",
+          "label": "Detailed reason",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "inspector-verification",
+      "version": 1,
+      "name": "Inspector Verification",
+      "description": "Sign-off checklist for the field work.",
+      "fields": [
+        {
+          "id": "inspectedOn",
+          "name": "inspectedOn",
+          "label": "Inspection date",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "qualityRating",
+          "name": "qualityRating",
+          "label": "Quality",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Excellent",
+              "value": "excellent"
+            },
+            {
+              "label": "Acceptable",
+              "value": "acceptable"
+            },
+            {
+              "label": "Poor",
+              "value": "poor"
+            }
+          ]
+        },
+        {
+          "id": "signOff",
+          "name": "signOff",
+          "label": "I confirm the resolution meets standards.",
+          "type": "checkbox",
+          "required": true
+        },
+        {
+          "id": "notes",
+          "name": "notes",
+          "label": "Notes",
+          "type": "textarea"
+        }
+      ]
+    },
+    {
+      "id": "field-resolution",
+      "version": 1,
+      "name": "Field Resolution",
+      "description": "Offline-friendly form for the field team.",
+      "fields": [
+        {
+          "id": "workDone",
+          "name": "workDone",
+          "label": "Work performed",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "id": "materialsUsed",
+          "name": "materialsUsed",
+          "label": "Materials used",
+          "type": "text"
+        },
+        {
+          "id": "completedAt",
+          "name": "completedAt",
+          "label": "Completed at",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "evidenceNote",
+          "name": "evidenceNote",
+          "label": "Evidence photo caption",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "id": "leave-request",
+      "version": 1,
+      "name": "Leave Request",
+      "description": "Employee applies for leave.",
+      "fields": [
+        {
+          "id": "leaveType",
+          "name": "leaveType",
+          "label": "Leave type",
+          "type": "select",
+          "required": true,
+          "options": [
+            {
+              "label": "Casual",
+              "value": "casual"
+            },
+            {
+              "label": "Sick",
+              "value": "sick"
+            },
+            {
+              "label": "Earned",
+              "value": "earned"
+            }
+          ]
+        },
+        {
+          "id": "fromDate",
+          "name": "fromDate",
+          "label": "From",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "toDate",
+          "name": "toDate",
+          "label": "To",
+          "type": "date",
+          "required": true
+        },
+        {
+          "id": "reason",
+          "name": "reason",
+          "label": "Reason",
+          "type": "textarea"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule-high-severity",
+      "code": "HIGH_SEVERITY",
+      "name": "High or critical severity",
+      "description": "Matches when severity is high or critical.",
+      "category": "routing",
+      "version": 1,
+      "status": "published",
+      "tags": [
+        "complaint",
+        "severity"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "severity",
+        "operator": "IN",
+        "value": [
+          "high",
+          "critical"
+        ]
+      }
+    },
+    {
+      "id": "rule-expensive",
+      "code": "EXPENSIVE_WORK",
+      "name": "Cost exceeds \u20b950,000",
+      "description": "Triggers finance approval branch when estimated cost is high.",
+      "category": "routing",
+      "version": 1,
+      "status": "published",
+      "tags": [
+        "complaint",
+        "finance"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "estimatedCost",
+        "operator": "GT",
+        "value": 50000
+      }
+    },
+    {
+      "id": "rule-vip-district",
+      "code": "VIP_DISTRICT",
+      "name": "VIP district (Hyderabad)",
+      "description": "Bypass triage for VIP zones.",
+      "category": "authorization",
+      "version": 1,
+      "status": "published",
+      "tags": [
+        "district",
+        "priority"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "district",
+        "operator": "EQ",
+        "value": "Hyderabad"
+      }
+    },
+    {
+      "id": "rule-must-have-contact",
+      "code": "REQUIRE_CONTACT",
+      "name": "Contact number required",
+      "description": "Validation guard: complaint must include a contact phone.",
+      "category": "validation",
+      "version": 1,
+      "status": "published",
+      "tags": [
+        "intake"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "contactPhone",
+        "operator": "HAS_VALUE"
+      }
+    },
+    {
+      "id": "rule-leave-long",
+      "code": "LONG_LEAVE",
+      "name": "Leave longer than 5 days",
+      "description": "Route long leaves through department head.",
+      "category": "routing",
+      "version": 1,
+      "status": "published",
+      "tags": [
+        "leave",
+        "hr"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "days",
+        "operator": "GT",
+        "value": 5
+      }
+    },
+    {
+      "id": "rule-critical-only",
+      "code": "CRITICAL_ONLY",
+      "name": "Critical severity only",
+      "description": "Guard for admin-only overrides.",
+      "category": "authorization",
+      "version": 2,
+      "status": "draft",
+      "tags": [
+        "severity",
+        "governance"
+      ],
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "expression": {
+        "kind": "comparison",
+        "field": "severity",
+        "operator": "EQ",
+        "value": "critical"
+      }
+    }
+  ],
+  "definitions": [
+    {
+      "id": "def-complaint",
+      "code": "SERVICE_COMPLAINT",
+      "name": "Service Complaint",
+      "description": "Citizen complaint flow with severity routing, parallel finance & technical approvals, field dispatch, and inspector verification.",
+      "version": 1,
+      "status": "published",
+      "tenantId": "water",
+      "entityType": "complaint",
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "startFormId": "complaint-intake",
+      "overrideRoles": [
+        "admin",
+        "departmentHead"
+      ],
+      "variables": [
+        {
+          "id": "v1",
+          "name": "severity",
+          "type": "string",
+          "defaultValue": "low"
+        },
+        {
+          "id": "v2",
+          "name": "estimatedCost",
+          "type": "number",
+          "defaultValue": 0
+        },
+        {
+          "id": "v3",
+          "name": "district",
+          "type": "string"
+        },
+        {
+          "id": "v4",
+          "name": "workOrderId",
+          "type": "string"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "n1",
+          "kind": "start",
+          "label": "Complaint Filed",
+          "actions": [
+            {
+              "id": "a1",
+              "kind": "submitForm",
+              "label": "Citizen intake"
+            }
+          ],
+          "ui": {
+            "x": 40,
+            "y": 260
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "userTask",
+          "label": "Triage",
+          "description": "Junior engineer classifies severity and cost.",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "engineer",
+            "honorDelegation": true
+          },
+          "sla": {
+            "dueInMinutes": 2,
+            "escalateAfterMinutes": 5,
+            "escalationPolicyId": "esc1"
+          },
+          "formRef": {
+            "formId": "complaint-triage",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 240,
+            "y": 260
+          }
+        },
+        {
+          "id": "n3",
+          "kind": "condition",
+          "label": "High severity?",
+          "ui": {
+            "x": 460,
+            "y": 260
+          }
+        },
+        {
+          "id": "n4",
+          "kind": "parallelSplit",
+          "label": "Fork approvals",
+          "ui": {
+            "x": 660,
+            "y": 260
+          }
+        },
+        {
+          "id": "n5",
+          "kind": "approval",
+          "label": "Finance Approval",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "supervisor"
+          },
+          "sla": {
+            "dueInMinutes": 3,
+            "escalateAfterMinutes": 8,
+            "escalationPolicyId": "esc1"
+          },
+          "ui": {
+            "x": 880,
+            "y": 140
+          }
+        },
+        {
+          "id": "n6",
+          "kind": "approval",
+          "label": "Technical Approval",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "departmentHead"
+          },
+          "sla": {
+            "dueInMinutes": 3,
+            "escalateAfterMinutes": 8,
+            "escalationPolicyId": "esc1"
+          },
+          "ui": {
+            "x": 880,
+            "y": 380
+          }
+        },
+        {
+          "id": "n7",
+          "kind": "join",
+          "label": "All approvals in",
+          "join": {
+            "mode": "all",
+            "cancelSiblings": false
+          },
+          "ui": {
+            "x": 1100,
+            "y": 260
+          }
+        },
+        {
+          "id": "n8",
+          "kind": "systemTask",
+          "label": "Create Work Order",
+          "description": "Idempotent call to ERP.",
+          "api": {
+            "method": "POST",
+            "url": "/erp/work-orders"
+          },
+          "failure": {
+            "idempotencyKeyTemplate": "{instance}-{node}",
+            "maxAttempts": 3,
+            "backoff": "exponential",
+            "backoffSeconds": 2,
+            "timeoutSeconds": 5,
+            "onTerminalFailure": "needs_attention"
+          },
+          "ui": {
+            "x": 1320,
+            "y": 260
+          }
+        },
+        {
+          "id": "n9",
+          "kind": "userTask",
+          "label": "Field Resolution",
+          "assignment": {
+            "strategy": "FIELD_BY_DISTRICT",
+            "honorDelegation": true
+          },
+          "sla": {
+            "dueInMinutes": 5,
+            "autoReassignAfterMinutes": 10
+          },
+          "formRef": {
+            "formId": "field-resolution",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 1540,
+            "y": 260
+          }
+        },
+        {
+          "id": "n10",
+          "kind": "approval",
+          "label": "Inspector Verification",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "inspector"
+          },
+          "sla": {
+            "dueInMinutes": 4
+          },
+          "ui": {
+            "x": 1760,
+            "y": 260
+          }
+        },
+        {
+          "id": "n11",
+          "kind": "notification",
+          "label": "Notify Citizen",
+          "description": "Multi-channel notification to complainant.",
+          "actions": [
+            {
+              "id": "a11",
+              "kind": "notify",
+              "label": "Citizen closure",
+              "config": {
+                "channels": [
+                  "in_app",
+                  "email",
+                  "sms"
+                ],
+                "toUserVar": "initiatorUserId",
+                "subject": "Complaint {{code}} closed",
+                "body": "Your complaint has been resolved. Thank you for reporting."
+              }
+            }
+          ],
+          "ui": {
+            "x": 1980,
+            "y": 260
+          }
+        },
+        {
+          "id": "n12",
+          "kind": "end",
+          "label": "Closed",
+          "ui": {
+            "x": 2200,
+            "y": 260
+          }
+        },
+        {
+          "id": "n13",
+          "kind": "systemTask",
+          "label": "Auto-close (low sev)",
+          "api": {
+            "method": "POST",
+            "url": "/erp/auto-close"
+          },
+          "failure": {
+            "maxAttempts": 2,
+            "backoff": "linear",
+            "backoffSeconds": 1,
+            "timeoutSeconds": 3,
+            "onTerminalFailure": "needs_attention"
+          },
+          "ui": {
+            "x": 660,
+            "y": 480
+          }
+        },
+        {
+          "id": "n14",
+          "kind": "end",
+          "label": "Auto-closed",
+          "ui": {
+            "x": 900,
+            "y": 480
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "id": "t1",
+          "from": "n1",
+          "to": "n2",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_start"
+        },
+        {
+          "id": "t2",
+          "from": "n2",
+          "to": "n3",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "SUBMIT_TRIAGE",
+          "actionLabel": "Submit triage",
+          "allowedRoles": [
+            "engineer",
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "complaint-triage",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t3",
+          "from": "n3",
+          "to": "n4",
+          "priority": 1,
+          "isDefault": false,
+          "actionKey": "route_to_approvals",
+          "actionLabel": "high / critical",
+          "ruleId": "rule-high-severity",
+          "auto": true
+        },
+        {
+          "id": "t4",
+          "from": "n3",
+          "to": "n13",
+          "priority": 10,
+          "isDefault": true,
+          "actionKey": "auto_close_low",
+          "actionLabel": "default",
+          "auto": true
+        },
+        {
+          "id": "t5",
+          "from": "n4",
+          "to": "n5",
+          "priority": 1,
+          "isDefault": false,
+          "actionLabel": "finance",
+          "auto": true,
+          "actionKey": "fork_finance"
+        },
+        {
+          "id": "t6",
+          "from": "n4",
+          "to": "n6",
+          "priority": 1,
+          "isDefault": false,
+          "actionLabel": "technical",
+          "auto": true,
+          "actionKey": "fork_technical"
+        },
+        {
+          "id": "t7",
+          "from": "n5",
+          "to": "n7",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "APPROVE_FINANCE",
+          "actionLabel": "Approve (finance)",
+          "allowedRoles": [
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t7r",
+          "from": "n5",
+          "to": "n12",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REJECT_FINANCE",
+          "actionLabel": "Reject (finance)",
+          "allowedRoles": [
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t8",
+          "from": "n6",
+          "to": "n7",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "APPROVE_TECHNICAL",
+          "actionLabel": "Approve (technical)",
+          "allowedRoles": [
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t8r",
+          "from": "n6",
+          "to": "n12",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REJECT_TECHNICAL",
+          "actionLabel": "Reject (technical)",
+          "allowedRoles": [
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t9",
+          "from": "n7",
+          "to": "n8",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "run_system"
+        },
+        {
+          "id": "t10",
+          "from": "n8",
+          "to": "n9",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "go_field"
+        },
+        {
+          "id": "t11",
+          "from": "n9",
+          "to": "n10",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "SUBMIT_FIELD_WORK",
+          "actionLabel": "Submit field report",
+          "allowedRoles": [
+            "field",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "field-resolution",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t12",
+          "from": "n10",
+          "to": "n11",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "VERIFY",
+          "actionLabel": "Verify & sign-off",
+          "allowedRoles": [
+            "inspector",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "inspector-verification",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t12r",
+          "from": "n10",
+          "to": "n9",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REOPEN_FIELD",
+          "actionLabel": "Send back to field",
+          "allowedRoles": [
+            "inspector",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t13",
+          "from": "n11",
+          "to": "n12",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_notify"
+        },
+        {
+          "id": "t14",
+          "from": "n13",
+          "to": "n14",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_close"
+        }
+      ]
+    },
+    {
+      "id": "def-complaint",
+      "code": "SERVICE_COMPLAINT",
+      "name": "Service Complaint",
+      "description": "v2 draft \u2014 adds guard rule on triage and additional SLA on inspector.",
+      "version": 2,
+      "status": "draft",
+      "tenantId": "water",
+      "entityType": "complaint",
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "startFormId": "complaint-intake",
+      "overrideRoles": [
+        "admin",
+        "departmentHead"
+      ],
+      "variables": [
+        {
+          "id": "v1",
+          "name": "severity",
+          "type": "string",
+          "defaultValue": "low"
+        },
+        {
+          "id": "v2",
+          "name": "estimatedCost",
+          "type": "number",
+          "defaultValue": 0
+        },
+        {
+          "id": "v3",
+          "name": "district",
+          "type": "string"
+        },
+        {
+          "id": "v4",
+          "name": "workOrderId",
+          "type": "string"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "n1",
+          "kind": "start",
+          "label": "Complaint Filed",
+          "actions": [
+            {
+              "id": "a1",
+              "kind": "submitForm",
+              "label": "Citizen intake"
+            }
+          ],
+          "ui": {
+            "x": 40,
+            "y": 260
+          }
+        },
+        {
+          "id": "n2",
+          "kind": "userTask",
+          "label": "Triage",
+          "description": "Junior engineer classifies severity and cost.",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "engineer",
+            "honorDelegation": true
+          },
+          "sla": {
+            "dueInMinutes": 2,
+            "escalateAfterMinutes": 5,
+            "escalationPolicyId": "esc1"
+          },
+          "formRef": {
+            "formId": "complaint-triage",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 240,
+            "y": 260
+          },
+          "guardRuleId": "rule-must-have-contact"
+        },
+        {
+          "id": "n3",
+          "kind": "condition",
+          "label": "High severity?",
+          "ui": {
+            "x": 460,
+            "y": 260
+          }
+        },
+        {
+          "id": "n4",
+          "kind": "parallelSplit",
+          "label": "Fork approvals",
+          "ui": {
+            "x": 660,
+            "y": 260
+          }
+        },
+        {
+          "id": "n5",
+          "kind": "approval",
+          "label": "Finance Approval",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "supervisor"
+          },
+          "sla": {
+            "dueInMinutes": 3,
+            "escalateAfterMinutes": 8,
+            "escalationPolicyId": "esc1"
+          },
+          "ui": {
+            "x": 880,
+            "y": 140
+          }
+        },
+        {
+          "id": "n6",
+          "kind": "approval",
+          "label": "Technical Approval",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "departmentHead"
+          },
+          "sla": {
+            "dueInMinutes": 3,
+            "escalateAfterMinutes": 8,
+            "escalationPolicyId": "esc1"
+          },
+          "ui": {
+            "x": 880,
+            "y": 380
+          }
+        },
+        {
+          "id": "n7",
+          "kind": "join",
+          "label": "All approvals in",
+          "join": {
+            "mode": "all",
+            "cancelSiblings": false
+          },
+          "ui": {
+            "x": 1100,
+            "y": 260
+          }
+        },
+        {
+          "id": "n8",
+          "kind": "systemTask",
+          "label": "Create Work Order",
+          "description": "Idempotent call to ERP.",
+          "api": {
+            "method": "POST",
+            "url": "/erp/work-orders"
+          },
+          "failure": {
+            "idempotencyKeyTemplate": "{instance}-{node}",
+            "maxAttempts": 3,
+            "backoff": "exponential",
+            "backoffSeconds": 2,
+            "timeoutSeconds": 5,
+            "onTerminalFailure": "needs_attention"
+          },
+          "ui": {
+            "x": 1320,
+            "y": 260
+          }
+        },
+        {
+          "id": "n9",
+          "kind": "userTask",
+          "label": "Field Resolution",
+          "assignment": {
+            "strategy": "FIELD_BY_DISTRICT",
+            "honorDelegation": true
+          },
+          "sla": {
+            "dueInMinutes": 5,
+            "autoReassignAfterMinutes": 10
+          },
+          "formRef": {
+            "formId": "field-resolution",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 1540,
+            "y": 260
+          }
+        },
+        {
+          "id": "n10",
+          "kind": "approval",
+          "label": "Inspector Verification",
+          "assignment": {
+            "strategy": "ROLE",
+            "role": "inspector"
+          },
+          "sla": {
+            "dueInMinutes": 4
+          },
+          "ui": {
+            "x": 1760,
+            "y": 260
+          }
+        },
+        {
+          "id": "n11",
+          "kind": "notification",
+          "label": "Notify Citizen",
+          "description": "Multi-channel notification to complainant.",
+          "actions": [
+            {
+              "id": "a11",
+              "kind": "notify",
+              "label": "Citizen closure",
+              "config": {
+                "channels": [
+                  "in_app",
+                  "email",
+                  "sms"
+                ],
+                "toUserVar": "initiatorUserId",
+                "subject": "Complaint {{code}} closed",
+                "body": "Your complaint has been resolved. Thank you for reporting."
+              }
+            }
+          ],
+          "ui": {
+            "x": 1980,
+            "y": 260
+          }
+        },
+        {
+          "id": "n12",
+          "kind": "end",
+          "label": "Closed",
+          "ui": {
+            "x": 2200,
+            "y": 260
+          }
+        },
+        {
+          "id": "n13",
+          "kind": "systemTask",
+          "label": "Auto-close (low sev)",
+          "api": {
+            "method": "POST",
+            "url": "/erp/auto-close"
+          },
+          "failure": {
+            "maxAttempts": 2,
+            "backoff": "linear",
+            "backoffSeconds": 1,
+            "timeoutSeconds": 3,
+            "onTerminalFailure": "needs_attention"
+          },
+          "ui": {
+            "x": 660,
+            "y": 480
+          }
+        },
+        {
+          "id": "n14",
+          "kind": "end",
+          "label": "Auto-closed",
+          "ui": {
+            "x": 900,
+            "y": 480
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "id": "t1",
+          "from": "n1",
+          "to": "n2",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_start"
+        },
+        {
+          "id": "t2",
+          "from": "n2",
+          "to": "n3",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "SUBMIT_TRIAGE",
+          "actionLabel": "Submit triage",
+          "allowedRoles": [
+            "engineer",
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "complaint-triage",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t3",
+          "from": "n3",
+          "to": "n4",
+          "priority": 1,
+          "isDefault": false,
+          "actionKey": "route_to_approvals",
+          "actionLabel": "high / critical",
+          "ruleId": "rule-high-severity",
+          "auto": true
+        },
+        {
+          "id": "t4",
+          "from": "n3",
+          "to": "n13",
+          "priority": 10,
+          "isDefault": true,
+          "actionKey": "auto_close_low",
+          "actionLabel": "default",
+          "auto": true
+        },
+        {
+          "id": "t5",
+          "from": "n4",
+          "to": "n5",
+          "priority": 1,
+          "isDefault": false,
+          "actionLabel": "finance",
+          "auto": true,
+          "actionKey": "fork_finance"
+        },
+        {
+          "id": "t6",
+          "from": "n4",
+          "to": "n6",
+          "priority": 1,
+          "isDefault": false,
+          "actionLabel": "technical",
+          "auto": true,
+          "actionKey": "fork_technical"
+        },
+        {
+          "id": "t7",
+          "from": "n5",
+          "to": "n7",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "APPROVE_FINANCE",
+          "actionLabel": "Approve (finance)",
+          "allowedRoles": [
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t7r",
+          "from": "n5",
+          "to": "n12",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REJECT_FINANCE",
+          "actionLabel": "Reject (finance)",
+          "allowedRoles": [
+            "supervisor",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t8",
+          "from": "n6",
+          "to": "n7",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "APPROVE_TECHNICAL",
+          "actionLabel": "Approve (technical)",
+          "allowedRoles": [
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t8r",
+          "from": "n6",
+          "to": "n12",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REJECT_TECHNICAL",
+          "actionLabel": "Reject (technical)",
+          "allowedRoles": [
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t9",
+          "from": "n7",
+          "to": "n8",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "run_system"
+        },
+        {
+          "id": "t10",
+          "from": "n8",
+          "to": "n9",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "go_field"
+        },
+        {
+          "id": "t11",
+          "from": "n9",
+          "to": "n10",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "SUBMIT_FIELD_WORK",
+          "actionLabel": "Submit field report",
+          "allowedRoles": [
+            "field",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "field-resolution",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t12",
+          "from": "n10",
+          "to": "n11",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "VERIFY",
+          "actionLabel": "Verify & sign-off",
+          "allowedRoles": [
+            "inspector",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "inspector-verification",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t12r",
+          "from": "n10",
+          "to": "n9",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "REOPEN_FIELD",
+          "actionLabel": "Send back to field",
+          "allowedRoles": [
+            "inspector",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "t13",
+          "from": "n11",
+          "to": "n12",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_notify"
+        },
+        {
+          "id": "t14",
+          "from": "n13",
+          "to": "n14",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_close"
+        }
+      ]
+    },
+    {
+      "id": "def-leave",
+      "code": "LEAVE_REQUEST",
+      "name": "Leave Request",
+      "description": "Employee leave with manager approval and HR notification.",
+      "version": 1,
+      "status": "published",
+      "tenantId": "water",
+      "entityType": "leave",
+      "createdAt": "2026-09-01T09:00:00Z",
+      "updatedAt": "2026-09-01T09:00:00Z",
+      "startFormId": "leave-request",
+      "overrideRoles": [
+        "admin",
+        "departmentHead"
+      ],
+      "variables": [
+        {
+          "id": "lv1",
+          "name": "days",
+          "type": "number",
+          "defaultValue": 1
+        },
+        {
+          "id": "lv2",
+          "name": "leaveType",
+          "type": "string"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "ln1",
+          "kind": "start",
+          "label": "Request Filed",
+          "ui": {
+            "x": 40,
+            "y": 180
+          }
+        },
+        {
+          "id": "ln2",
+          "kind": "approval",
+          "label": "Manager Approval",
+          "assignment": {
+            "strategy": "REPORTING_MANAGER",
+            "honorDelegation": true
+          },
+          "sla": {
+            "dueInMinutes": 10,
+            "escalateAfterMinutes": 30,
+            "escalationPolicyId": "esc1"
+          },
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 240,
+            "y": 180
+          }
+        },
+        {
+          "id": "ln3",
+          "kind": "condition",
+          "label": "Long leave?",
+          "ui": {
+            "x": 460,
+            "y": 180
+          }
+        },
+        {
+          "id": "ln4",
+          "kind": "approval",
+          "label": "HR Head Approval",
+          "assignment": {
+            "strategy": "DEPARTMENT_HEAD"
+          },
+          "sla": {
+            "dueInMinutes": 15
+          },
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          },
+          "ui": {
+            "x": 680,
+            "y": 80
+          }
+        },
+        {
+          "id": "ln5",
+          "kind": "notification",
+          "label": "Notify Employee",
+          "actions": [
+            {
+              "id": "aln5",
+              "kind": "notify",
+              "label": "Grant",
+              "config": {
+                "channels": [
+                  "in_app",
+                  "email"
+                ],
+                "subject": "Leave approved",
+                "body": "Your leave has been approved."
+              }
+            }
+          ],
+          "ui": {
+            "x": 900,
+            "y": 180
+          }
+        },
+        {
+          "id": "ln6",
+          "kind": "end",
+          "label": "Approved",
+          "ui": {
+            "x": 1120,
+            "y": 180
+          }
+        }
+      ],
+      "transitions": [
+        {
+          "id": "lt1",
+          "from": "ln1",
+          "to": "ln2",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_start"
+        },
+        {
+          "id": "lt2",
+          "from": "ln2",
+          "to": "ln3",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "MANAGER_APPROVE",
+          "actionLabel": "Approve (manager)",
+          "allowedRoles": [
+            "supervisor",
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "lt2r",
+          "from": "ln2",
+          "to": "ln6",
+          "priority": 2,
+          "isDefault": false,
+          "actionKey": "MANAGER_REJECT",
+          "actionLabel": "Reject",
+          "allowedRoles": [
+            "supervisor",
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "rejection-reason",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "lt3",
+          "from": "ln3",
+          "to": "ln4",
+          "priority": 1,
+          "isDefault": false,
+          "ruleId": "rule-leave-long",
+          "auto": true,
+          "actionKey": "long_leave"
+        },
+        {
+          "id": "lt4",
+          "from": "ln3",
+          "to": "ln5",
+          "priority": 10,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "short_leave"
+        },
+        {
+          "id": "lt5",
+          "from": "ln4",
+          "to": "ln5",
+          "priority": 1,
+          "isDefault": true,
+          "actionKey": "HR_APPROVE",
+          "actionLabel": "Approve (HR)",
+          "allowedRoles": [
+            "departmentHead",
+            "admin"
+          ],
+          "formRef": {
+            "formId": "approval-comments",
+            "formVersion": 1
+          }
+        },
+        {
+          "id": "lt6",
+          "from": "ln5",
+          "to": "ln6",
+          "priority": 1,
+          "isDefault": true,
+          "auto": true,
+          "actionKey": "auto_grant"
+        }
+      ]
+    }
+  ],
+  "instances": [
+    {
+      "id": "inst-c-001",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100001",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-001"
+      },
+      "status": "running",
+      "currentNodeIds": [
+        "n5",
+        "n6"
+      ],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "high",
+      "startedAt": "2026-09-01T06:00:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "high",
+        "estimatedCost": 75000,
+        "district": "Hyderabad",
+        "category": "leakage",
+        "contactPhone": "9876543210",
+        "assessment": "Major pipe burst; needs urgent repair"
+      }
+    },
+    {
+      "id": "inst-c-002",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100002",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-002"
+      },
+      "status": "running",
+      "currentNodeIds": [
+        "n9"
+      ],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "critical",
+      "startedAt": "2026-08-31T21:00:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "critical",
+        "estimatedCost": 140000,
+        "district": "Warangal",
+        "category": "contamination",
+        "contactPhone": "9012345678",
+        "workOrderId": "WO-778812"
+      }
+    },
+    {
+      "id": "inst-c-003",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100003",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-003"
+      },
+      "status": "completed",
+      "currentNodeIds": [],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "normal",
+      "startedAt": "2026-08-31T09:00:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "low",
+        "estimatedCost": 8000,
+        "district": "Karimnagar",
+        "category": "billing"
+      },
+      "completedAt": "2026-08-31T11:00:00Z"
+    },
+    {
+      "id": "inst-c-004",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100004",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-004"
+      },
+      "status": "needs_attention",
+      "currentNodeIds": [
+        "n8"
+      ],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "high",
+      "startedAt": "2026-09-01T05:00:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "high",
+        "estimatedCost": 62000,
+        "district": "Hyderabad",
+        "category": "no_supply",
+        "__systemRetries": {
+          "n8": 3
+        }
+      }
+    },
+    {
+      "id": "inst-c-005",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100005",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-005"
+      },
+      "status": "cancelled",
+      "currentNodeIds": [],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "low",
+      "startedAt": "2026-09-01T04:00:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "low",
+        "estimatedCost": 1200,
+        "district": "Hyderabad",
+        "category": "billing"
+      },
+      "completedAt": "2026-09-01T06:00:00Z"
+    },
+    {
+      "id": "inst-c-006",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100006",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-006"
+      },
+      "status": "running",
+      "currentNodeIds": [
+        "n2"
+      ],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "normal",
+      "startedAt": "2026-09-01T08:45:00Z",
+      "version": 1,
+      "variables": {
+        "district": "Hyderabad",
+        "category": "leakage",
+        "contactPhone": "9988776655"
+      }
+    },
+    {
+      "id": "inst-c-007",
+      "definitionId": "def-complaint",
+      "definitionVersion": 1,
+      "code": "COM-100007",
+      "entityRef": {
+        "type": "complaint",
+        "id": "c-007"
+      },
+      "status": "running",
+      "currentNodeIds": [
+        "n10"
+      ],
+      "initiatorUserId": "u7",
+      "tenantId": "water",
+      "priority": "high",
+      "startedAt": "2026-09-01T02:20:00Z",
+      "version": 1,
+      "variables": {
+        "severity": "high",
+        "estimatedCost": 92000,
+        "district": "Hyderabad",
+        "workOrderId": "WO-778821"
+      }
+    },
+    {
+      "id": "inst-l-001",
+      "definitionId": "def-leave",
+      "definitionVersion": 1,
+      "code": "LV-200001",
+      "entityRef": {
+        "type": "complaint",
+        "id": "e-101"
+      },
+      "status": "running",
+      "currentNodeIds": [
+        "ln2"
+      ],
+      "initiatorUserId": "u2",
+      "tenantId": "water",
+      "priority": "normal",
+      "startedAt": "2026-09-01T08:00:00Z",
+      "version": 1,
+      "variables": {
+        "leaveType": "casual",
+        "days": 3,
+        "fromDate": "2026-09-10",
+        "toDate": "2026-09-12",
+        "reason": "family function"
+      }
+    },
+    {
+      "id": "inst-l-002",
+      "definitionId": "def-leave",
+      "definitionVersion": 1,
+      "code": "LV-200002",
+      "entityRef": {
+        "type": "complaint",
+        "id": "e-102"
+      },
+      "status": "completed",
+      "currentNodeIds": [],
+      "initiatorUserId": "u8",
+      "tenantId": "power",
+      "priority": "normal",
+      "startedAt": "2026-08-30T09:00:00Z",
+      "version": 1,
+      "variables": {
+        "leaveType": "sick",
+        "days": 2
+      },
+      "completedAt": "2026-08-30T11:00:00Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-001",
+      "instanceId": "inst-c-001",
+      "nodeId": "n5",
+      "nodeLabel": "Finance Approval",
+      "assigneeUserId": "u1",
+      "assigneeRole": "supervisor",
+      "status": "open",
+      "createdAt": "2026-09-01T06:00:00Z",
+      "priority": "high",
+      "escalationCount": 1,
+      "version": 1,
+      "idempotencyKey": "inst-c-001-n5--180",
+      "dueAt": "2026-09-01T08:00:00Z",
+      "slaBreached": true
+    },
+    {
+      "id": "task-002",
+      "instanceId": "inst-c-001",
+      "nodeId": "n6",
+      "nodeLabel": "Technical Approval",
+      "assigneeUserId": "u3",
+      "assigneeRole": "departmentHead",
+      "status": "in_progress",
+      "createdAt": "2026-09-01T06:00:00Z",
+      "priority": "high",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-001-n6--180",
+      "dueAt": "2026-09-01T09:30:00Z"
+    },
+    {
+      "id": "task-003",
+      "instanceId": "inst-c-002",
+      "nodeId": "n9",
+      "nodeLabel": "Field Resolution",
+      "assigneeUserId": "u5",
+      "assigneeRole": "field",
+      "status": "open",
+      "createdAt": "2026-08-31T21:00:00Z",
+      "priority": "critical",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-002-n9--720",
+      "dueAt": "2026-09-01T12:00:00Z"
+    },
+    {
+      "id": "task-004",
+      "instanceId": "inst-c-006",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "assigneeUserId": "u2",
+      "assigneeRole": "engineer",
+      "status": "open",
+      "createdAt": "2026-09-01T08:45:00Z",
+      "priority": "normal",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-006-n2--15",
+      "dueAt": "2026-09-01T08:59:00Z",
+      "slaBreached": true
+    },
+    {
+      "id": "task-005",
+      "instanceId": "inst-c-007",
+      "nodeId": "n10",
+      "nodeLabel": "Inspector Verification",
+      "assigneeUserId": "u6",
+      "assigneeRole": "inspector",
+      "status": "open",
+      "createdAt": "2026-09-01T02:20:00Z",
+      "priority": "high",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-007-n10--400",
+      "dueAt": "2026-09-01T09:40:00Z"
+    },
+    {
+      "id": "task-006",
+      "instanceId": "inst-l-001",
+      "nodeId": "ln2",
+      "nodeLabel": "Manager Approval",
+      "assigneeUserId": "u3",
+      "assigneeRole": "supervisor",
+      "status": "open",
+      "createdAt": "2026-09-01T08:00:00Z",
+      "priority": "normal",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-l-001-ln2--60",
+      "dueAt": "2026-09-01T12:00:00Z"
+    },
+    {
+      "id": "task-c-001",
+      "instanceId": "inst-c-001",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "assigneeUserId": "u2",
+      "assigneeRole": "engineer",
+      "status": "completed",
+      "createdAt": "2026-09-01T04:00:00Z",
+      "priority": "high",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-001-n2--300",
+      "dueAt": "2026-09-01T06:00:00Z",
+      "firstResponseAt": "2026-09-01T04:40:00Z",
+      "completedAt": "2026-09-01T05:00:00Z"
+    },
+    {
+      "id": "task-c-002",
+      "instanceId": "inst-c-003",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "assigneeUserId": "u2",
+      "assigneeRole": "engineer",
+      "status": "completed",
+      "createdAt": "2026-08-31T09:40:00Z",
+      "priority": "normal",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-003-n2--1400",
+      "dueAt": "2026-08-31T11:20:00Z",
+      "firstResponseAt": "2026-08-31T10:00:00Z",
+      "completedAt": "2026-08-31T10:10:00Z"
+    },
+    {
+      "id": "task-c-003",
+      "instanceId": "inst-c-002",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "assigneeUserId": "u2",
+      "assigneeRole": "engineer",
+      "status": "completed",
+      "createdAt": "2026-08-31T18:00:00Z",
+      "priority": "critical",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-002-n2--900",
+      "dueAt": "2026-08-31T18:20:00Z",
+      "firstResponseAt": "2026-08-31T18:05:00Z",
+      "completedAt": "2026-08-31T18:10:00Z"
+    },
+    {
+      "id": "task-c-004",
+      "instanceId": "inst-c-002",
+      "nodeId": "n5",
+      "nodeLabel": "Finance Approval",
+      "assigneeUserId": "u1",
+      "assigneeRole": "supervisor",
+      "status": "completed",
+      "createdAt": "2026-08-31T18:20:00Z",
+      "priority": "critical",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-002-n5--880",
+      "firstResponseAt": "2026-08-31T18:30:00Z",
+      "completedAt": "2026-08-31T18:35:00Z"
+    },
+    {
+      "id": "task-c-005",
+      "instanceId": "inst-c-002",
+      "nodeId": "n6",
+      "nodeLabel": "Technical Approval",
+      "assigneeUserId": "u3",
+      "assigneeRole": "departmentHead",
+      "status": "completed",
+      "createdAt": "2026-08-31T18:20:00Z",
+      "priority": "critical",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-002-n6--880",
+      "firstResponseAt": "2026-08-31T18:30:00Z",
+      "completedAt": "2026-08-31T18:35:00Z"
+    },
+    {
+      "id": "task-c-006",
+      "instanceId": "inst-c-007",
+      "nodeId": "n9",
+      "nodeLabel": "Field Resolution",
+      "assigneeUserId": "u4",
+      "assigneeRole": "field",
+      "status": "completed",
+      "createdAt": "2026-09-01T01:50:00Z",
+      "priority": "high",
+      "escalationCount": 0,
+      "version": 1,
+      "idempotencyKey": "inst-c-007-n9--430",
+      "firstResponseAt": "2026-09-01T02:00:00Z",
+      "completedAt": "2026-09-01T02:10:00Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-001",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n1",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-002",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n2",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7",
+      "reason": "auto_start"
+    },
+    {
+      "id": "log-003",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n3",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "fromNodeId": "n2",
+      "actorUserId": "u2",
+      "action": "complete",
+      "reason": "Submit triage"
+    },
+    {
+      "id": "log-004",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n4",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "fromNodeId": "n3",
+      "actorUserId": "system",
+      "reason": "high / critical"
+    },
+    {
+      "id": "log-005",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n5",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "fromNodeId": "n4",
+      "actorUserId": "system",
+      "reason": "finance"
+    },
+    {
+      "id": "log-006",
+      "instanceId": "inst-c-001",
+      "toNodeId": "n6",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "fromNodeId": "n4",
+      "actorUserId": "system",
+      "reason": "technical"
+    },
+    {
+      "id": "log-006a",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n1",
+      "timestamp": "2026-08-31T18:00:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-006b",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n2",
+      "timestamp": "2026-08-31T18:00:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7",
+      "reason": "auto_start"
+    },
+    {
+      "id": "log-007",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n3",
+      "timestamp": "2026-08-31T18:10:00Z",
+      "fromNodeId": "n2",
+      "actorUserId": "u2",
+      "action": "complete"
+    },
+    {
+      "id": "log-008",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n4",
+      "timestamp": "2026-08-31T18:11:00Z",
+      "fromNodeId": "n3",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-009",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n5",
+      "timestamp": "2026-08-31T18:11:00Z",
+      "fromNodeId": "n4",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-010",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n6",
+      "timestamp": "2026-08-31T18:11:00Z",
+      "fromNodeId": "n4",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-011",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n7",
+      "timestamp": "2026-08-31T18:35:00Z",
+      "fromNodeId": "n5",
+      "actorUserId": "u1",
+      "action": "approve",
+      "reason": "APPROVE_FINANCE"
+    },
+    {
+      "id": "log-012",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n7",
+      "timestamp": "2026-08-31T18:35:00Z",
+      "fromNodeId": "n6",
+      "actorUserId": "u3",
+      "action": "approve",
+      "reason": "APPROVE_TECHNICAL"
+    },
+    {
+      "id": "log-013",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n8",
+      "timestamp": "2026-08-31T18:36:00Z",
+      "fromNodeId": "n7",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-014",
+      "instanceId": "inst-c-002",
+      "toNodeId": "n9",
+      "timestamp": "2026-08-31T18:37:00Z",
+      "fromNodeId": "n8",
+      "actorUserId": "system",
+      "reason": "WO-778812 created"
+    },
+    {
+      "id": "log-015",
+      "instanceId": "inst-c-003",
+      "toNodeId": "n1",
+      "timestamp": "2026-08-31T09:00:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-016",
+      "instanceId": "inst-c-003",
+      "toNodeId": "n2",
+      "timestamp": "2026-08-31T09:00:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7"
+    },
+    {
+      "id": "log-017",
+      "instanceId": "inst-c-003",
+      "toNodeId": "n3",
+      "timestamp": "2026-08-31T10:10:00Z",
+      "fromNodeId": "n2",
+      "actorUserId": "u2",
+      "action": "complete"
+    },
+    {
+      "id": "log-018",
+      "instanceId": "inst-c-003",
+      "toNodeId": "n13",
+      "timestamp": "2026-08-31T10:10:00Z",
+      "fromNodeId": "n3",
+      "actorUserId": "system",
+      "reason": "default"
+    },
+    {
+      "id": "log-019",
+      "instanceId": "inst-c-003",
+      "toNodeId": "n14",
+      "timestamp": "2026-08-31T10:11:00Z",
+      "fromNodeId": "n13",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-020",
+      "instanceId": "inst-c-003",
+      "toNodeId": "completed",
+      "timestamp": "2026-08-31T10:12:00Z",
+      "fromNodeId": "n14",
+      "actorUserId": "system",
+      "reason": "reached end: Auto-closed"
+    },
+    {
+      "id": "log-021",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n1",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-022",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n2",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7"
+    },
+    {
+      "id": "log-023",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n3",
+      "timestamp": "2026-09-01T05:40:00Z",
+      "fromNodeId": "n2",
+      "actorUserId": "u2",
+      "action": "complete"
+    },
+    {
+      "id": "log-024",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n4",
+      "timestamp": "2026-09-01T05:41:00Z",
+      "fromNodeId": "n3",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-025",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n7",
+      "timestamp": "2026-09-01T06:00:00Z",
+      "fromNodeId": "n5",
+      "actorUserId": "u1",
+      "action": "approve"
+    },
+    {
+      "id": "log-026",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n7",
+      "timestamp": "2026-09-01T06:00:00Z",
+      "fromNodeId": "n6",
+      "actorUserId": "u3",
+      "action": "approve"
+    },
+    {
+      "id": "log-027",
+      "instanceId": "inst-c-004",
+      "toNodeId": "n8",
+      "timestamp": "2026-09-01T06:01:00Z",
+      "fromNodeId": "n7",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-028",
+      "instanceId": "inst-c-004",
+      "toNodeId": "needs_attention",
+      "timestamp": "2026-09-01T06:10:00Z",
+      "actorUserId": "system",
+      "reason": "System task failed: Create Work Order"
+    },
+    {
+      "id": "log-029",
+      "instanceId": "inst-c-005",
+      "toNodeId": "n1",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-030",
+      "instanceId": "inst-c-005",
+      "toNodeId": "n2",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7"
+    },
+    {
+      "id": "log-031",
+      "instanceId": "inst-c-005",
+      "toNodeId": "cancelled",
+      "timestamp": "2026-09-01T04:40:00Z",
+      "actorUserId": "u7",
+      "reason": "recalled by initiator"
+    },
+    {
+      "id": "log-032",
+      "instanceId": "inst-c-006",
+      "toNodeId": "n1",
+      "timestamp": "2026-09-01T08:45:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-033",
+      "instanceId": "inst-c-006",
+      "toNodeId": "n2",
+      "timestamp": "2026-09-01T08:45:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7"
+    },
+    {
+      "id": "log-034",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n1",
+      "timestamp": "2026-09-01T00:40:00Z",
+      "actorUserId": "u7",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-035",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n2",
+      "timestamp": "2026-09-01T00:40:00Z",
+      "fromNodeId": "n1",
+      "actorUserId": "u7"
+    },
+    {
+      "id": "log-036",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n3",
+      "timestamp": "2026-09-01T01:20:00Z",
+      "fromNodeId": "n2",
+      "actorUserId": "u2",
+      "action": "complete"
+    },
+    {
+      "id": "log-037",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n4",
+      "timestamp": "2026-09-01T01:21:00Z",
+      "fromNodeId": "n3",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-038",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n7",
+      "timestamp": "2026-09-01T01:40:00Z",
+      "fromNodeId": "n5",
+      "actorUserId": "u1",
+      "action": "approve"
+    },
+    {
+      "id": "log-039",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n7",
+      "timestamp": "2026-09-01T01:40:00Z",
+      "fromNodeId": "n6",
+      "actorUserId": "u3",
+      "action": "approve"
+    },
+    {
+      "id": "log-040",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n8",
+      "timestamp": "2026-09-01T01:41:00Z",
+      "fromNodeId": "n7",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-041",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n9",
+      "timestamp": "2026-09-01T01:42:00Z",
+      "fromNodeId": "n8",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-042",
+      "instanceId": "inst-c-007",
+      "toNodeId": "n10",
+      "timestamp": "2026-09-01T02:10:00Z",
+      "fromNodeId": "n9",
+      "actorUserId": "u4",
+      "action": "complete"
+    },
+    {
+      "id": "log-043",
+      "instanceId": "inst-l-001",
+      "toNodeId": "ln1",
+      "timestamp": "2026-09-01T08:00:00Z",
+      "actorUserId": "u2",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-044",
+      "instanceId": "inst-l-001",
+      "toNodeId": "ln2",
+      "timestamp": "2026-09-01T08:00:00Z",
+      "fromNodeId": "ln1",
+      "actorUserId": "u2"
+    },
+    {
+      "id": "log-045",
+      "instanceId": "inst-l-002",
+      "toNodeId": "ln1",
+      "timestamp": "2026-08-30T09:00:00Z",
+      "actorUserId": "u8",
+      "reason": "workflow started"
+    },
+    {
+      "id": "log-046",
+      "instanceId": "inst-l-002",
+      "toNodeId": "ln2",
+      "timestamp": "2026-08-30T09:00:00Z",
+      "fromNodeId": "ln1",
+      "actorUserId": "u8"
+    },
+    {
+      "id": "log-047",
+      "instanceId": "inst-l-002",
+      "toNodeId": "ln3",
+      "timestamp": "2026-08-30T09:10:00Z",
+      "fromNodeId": "ln2",
+      "actorUserId": "u3",
+      "action": "approve"
+    },
+    {
+      "id": "log-048",
+      "instanceId": "inst-l-002",
+      "toNodeId": "ln5",
+      "timestamp": "2026-08-30T09:11:00Z",
+      "fromNodeId": "ln3",
+      "actorUserId": "system",
+      "reason": "short_leave"
+    },
+    {
+      "id": "log-049",
+      "instanceId": "inst-l-002",
+      "toNodeId": "ln6",
+      "timestamp": "2026-08-30T09:12:00Z",
+      "fromNodeId": "ln5",
+      "actorUserId": "system"
+    },
+    {
+      "id": "log-050",
+      "instanceId": "inst-l-002",
+      "toNodeId": "completed",
+      "timestamp": "2026-08-30T09:13:00Z",
+      "fromNodeId": "ln6",
+      "actorUserId": "system"
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-001",
+      "type": "workflow.started",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "payload": {},
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-002",
+      "type": "task.created",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "payload": {},
+      "actorUserId": "u2"
+    },
+    {
+      "id": "ev-003",
+      "type": "task.completed",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "payload": {
+        "taskId": "task-c-001",
+        "action": "complete"
+      },
+      "actorUserId": "u2"
+    },
+    {
+      "id": "ev-004",
+      "type": "transition.taken",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "payload": {
+        "toNodeId": "n3"
+      },
+      "actorUserId": "u2"
+    },
+    {
+      "id": "ev-005",
+      "type": "task.created",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "payload": {
+        "taskId": "task-001"
+      },
+      "actorUserId": "u1"
+    },
+    {
+      "id": "ev-006",
+      "type": "task.created",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "payload": {
+        "taskId": "task-002"
+      },
+      "actorUserId": "u3"
+    },
+    {
+      "id": "ev-007",
+      "type": "sla.breached",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T08:00:00Z",
+      "payload": {
+        "taskId": "task-001"
+      }
+    },
+    {
+      "id": "ev-008",
+      "type": "escalation.triggered",
+      "instanceId": "inst-c-001",
+      "timestamp": "2026-09-01T08:02:00Z",
+      "payload": {
+        "taskId": "task-001",
+        "level": 1,
+        "to": "u3"
+      }
+    },
+    {
+      "id": "ev-101",
+      "type": "workflow.started",
+      "instanceId": "inst-c-004",
+      "timestamp": "2026-09-01T05:00:00Z",
+      "payload": {},
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-102",
+      "type": "system_task.failed",
+      "instanceId": "inst-c-004",
+      "timestamp": "2026-09-01T06:08:00Z",
+      "payload": {
+        "nodeId": "n8",
+        "attempt": 1,
+        "error": "simulated transient error"
+      },
+      "actorUserId": "system"
+    },
+    {
+      "id": "ev-103",
+      "type": "system_task.retried",
+      "instanceId": "inst-c-004",
+      "timestamp": "2026-09-01T06:09:00Z",
+      "payload": {
+        "nodeId": "n8",
+        "attempt": 2,
+        "nextInMs": 4000
+      },
+      "actorUserId": "system"
+    },
+    {
+      "id": "ev-104",
+      "type": "system_task.failed",
+      "instanceId": "inst-c-004",
+      "timestamp": "2026-09-01T06:10:00Z",
+      "payload": {
+        "nodeId": "n8",
+        "attempt": 3,
+        "terminal": true
+      },
+      "actorUserId": "system"
+    },
+    {
+      "id": "ev-201",
+      "type": "workflow.started",
+      "instanceId": "inst-c-003",
+      "timestamp": "2026-08-31T09:00:00Z",
+      "payload": {},
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-202",
+      "type": "workflow.completed",
+      "instanceId": "inst-c-003",
+      "timestamp": "2026-08-31T10:12:00Z",
+      "payload": {
+        "reason": "reached end: Auto-closed"
+      },
+      "actorUserId": "system"
+    },
+    {
+      "id": "ev-301",
+      "type": "workflow.started",
+      "instanceId": "inst-c-005",
+      "timestamp": "2026-09-01T04:00:00Z",
+      "payload": {},
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-302",
+      "type": "workflow.cancelled",
+      "instanceId": "inst-c-005",
+      "timestamp": "2026-09-01T04:40:00Z",
+      "payload": {
+        "reason": "recalled by initiator"
+      },
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-401",
+      "type": "workflow.started",
+      "instanceId": "inst-c-007",
+      "timestamp": "2026-09-01T00:40:00Z",
+      "payload": {},
+      "actorUserId": "u7"
+    },
+    {
+      "id": "ev-402",
+      "type": "task.completed",
+      "instanceId": "inst-c-007",
+      "timestamp": "2026-09-01T02:10:00Z",
+      "payload": {
+        "taskId": "task-c-006",
+        "action": "complete"
+      },
+      "actorUserId": "u4"
+    },
+    {
+      "id": "ev-501",
+      "type": "workflow.started",
+      "instanceId": "inst-l-001",
+      "timestamp": "2026-09-01T08:00:00Z",
+      "payload": {},
+      "actorUserId": "u2"
+    },
+    {
+      "id": "ev-502",
+      "type": "task.assigned",
+      "instanceId": "inst-l-001",
+      "timestamp": "2026-09-01T08:00:00Z",
+      "payload": {
+        "taskId": "task-006",
+        "userId": "u3"
+      },
+      "actorUserId": "system"
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "snap-001",
+      "instanceId": "inst-c-001",
+      "nodeId": "n1",
+      "nodeLabel": "Complaint Filed",
+      "taskId": null,
+      "formId": "complaint-intake",
+      "formVersion": 1,
+      "data": {
+        "category": "leakage",
+        "district": "Hyderabad",
+        "address": "12/5 Banjara Hills",
+        "description": "Water gushing since morning",
+        "contactPhone": "9876543210"
+      },
+      "variables": {
+        "district": "Hyderabad",
+        "category": "leakage"
+      },
+      "actor": "u7",
+      "reason": "workflow started",
+      "capturedAt": "2026-09-01T04:00:00Z"
+    },
+    {
+      "id": "snap-002",
+      "instanceId": "inst-c-001",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "taskId": "task-c-001",
+      "formId": "complaint-triage",
+      "formVersion": 1,
+      "data": {
+        "severity": "high",
+        "estimatedCost": 75000,
+        "assessment": "Major pipe burst; needs urgent repair"
+      },
+      "variables": {
+        "severity": "high",
+        "estimatedCost": 75000,
+        "district": "Hyderabad"
+      },
+      "actor": "u2",
+      "reason": "task complete",
+      "capturedAt": "2026-09-01T05:00:00Z"
+    },
+    {
+      "id": "snap-003",
+      "instanceId": "inst-c-002",
+      "nodeId": "n2",
+      "nodeLabel": "Triage",
+      "taskId": "task-c-003",
+      "formId": "complaint-triage",
+      "formVersion": 1,
+      "data": {
+        "severity": "critical",
+        "estimatedCost": 140000,
+        "assessment": "Contaminated supply reported by residents"
+      },
+      "variables": {
+        "severity": "critical",
+        "estimatedCost": 140000,
+        "district": "Warangal"
+      },
+      "actor": "u2",
+      "reason": "task complete",
+      "capturedAt": "2026-08-31T18:10:00Z"
+    },
+    {
+      "id": "snap-004",
+      "instanceId": "inst-c-002",
+      "nodeId": "n5",
+      "nodeLabel": "Finance Approval",
+      "taskId": "task-c-004",
+      "formId": "approval-comments",
+      "formVersion": 1,
+      "data": {
+        "comments": "Approved despite budget overrun; treat as emergency."
+      },
+      "variables": {
+        "severity": "critical",
+        "estimatedCost": 140000
+      },
+      "actor": "u1",
+      "reason": "action APPROVE_FINANCE",
+      "capturedAt": "2026-08-31T18:35:00Z"
+    },
+    {
+      "id": "snap-005",
+      "instanceId": "inst-c-002",
+      "nodeId": "n6",
+      "nodeLabel": "Technical Approval",
+      "taskId": "task-c-005",
+      "formId": "approval-comments",
+      "formVersion": 1,
+      "data": {
+        "comments": "Coordinate with treatment plant."
+      },
+      "variables": {
+        "severity": "critical"
+      },
+      "actor": "u3",
+      "reason": "action APPROVE_TECHNICAL",
+      "capturedAt": "2026-08-31T18:35:00Z"
+    },
+    {
+      "id": "snap-006",
+      "instanceId": "inst-c-007",
+      "nodeId": "n9",
+      "nodeLabel": "Field Resolution",
+      "taskId": "task-c-006",
+      "formId": "field-resolution",
+      "formVersion": 1,
+      "data": {
+        "workDone": "Replaced 30m of pipeline; sanitised connections.",
+        "materialsUsed": "HDPE pipe, chlorine tabs",
+        "completedAt": "2026-09-01",
+        "evidenceNote": "Before/after photos attached"
+      },
+      "variables": {
+        "severity": "high",
+        "workOrderId": "WO-778821"
+      },
+      "actor": "u4",
+      "reason": "task complete",
+      "capturedAt": "2026-09-01T02:10:00Z"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "att-001",
+      "instanceId": "inst-c-002",
+      "taskId": "task-c-003",
+      "nodeId": "n2",
+      "name": "leak-site.png",
+      "contentType": "image/png",
+      "sizeBytes": 124,
+      "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      "uploadedBy": "u2",
+      "uploadedAt": "2026-08-31T18:11:00Z",
+      "caption": "Site of the burst"
+    },
+    {
+      "id": "att-002",
+      "instanceId": "inst-c-007",
+      "taskId": "task-c-006",
+      "nodeId": "n9",
+      "name": "after-repair.png",
+      "contentType": "image/png",
+      "sizeBytes": 124,
+      "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      "uploadedBy": "u4",
+      "uploadedAt": "2026-09-01T02:10:00Z",
+      "caption": "After repair"
+    },
+    {
+      "id": "att-003",
+      "instanceId": "inst-c-001",
+      "taskId": "task-c-001",
+      "nodeId": "n2",
+      "name": "assessment.pdf",
+      "contentType": "application/pdf",
+      "sizeBytes": 320,
+      "dataUrl": "data:application/pdf;base64,JVBERi0xLjMKJf////8KMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwo+PgplbmRvYmoKdHJhaWxlcgo8PAovUm9vdCAxIDAgUgo+Pgo=",
+      "uploadedBy": "u2",
+      "uploadedAt": "2026-09-01T05:00:00Z",
+      "caption": "Full assessment report"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "ntf-001",
+      "channel": "in_app",
+      "kind": "workflow_started",
+      "toUserId": "u7",
+      "subject": "Workflow started: Service Complaint",
+      "body": "Case COM-100001 was created and is now running.",
+      "createdAt": "2026-09-01T04:00:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-001",
+      "taskId": null,
+      "deliveredAt": "2026-09-01T04:00:00Z"
+    },
+    {
+      "id": "ntf-002",
+      "channel": "email",
+      "kind": "task_assigned",
+      "toUserId": "u1",
+      "subject": "New task: Finance Approval",
+      "body": "You have been assigned Finance Approval on case COM-100001.",
+      "createdAt": "2026-09-01T04:00:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-001",
+      "taskId": "task-001",
+      "deliveredAt": "2026-09-01T04:00:00Z",
+      "toAddress": "u1@amigo.local"
+    },
+    {
+      "id": "ntf-003",
+      "channel": "in_app",
+      "kind": "task_assigned",
+      "toUserId": "u3",
+      "subject": "New task: Technical Approval",
+      "body": "You have been assigned Technical Approval on case COM-100001.",
+      "createdAt": "2026-09-01T04:00:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-001",
+      "taskId": "task-002",
+      "deliveredAt": "2026-09-01T04:00:00Z"
+    },
+    {
+      "id": "ntf-004",
+      "channel": "email",
+      "kind": "sla_breach",
+      "toUserId": "u1",
+      "subject": "SLA breached: Finance Approval",
+      "body": "Your task has breached its SLA.",
+      "createdAt": "2026-09-01T08:00:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-001",
+      "taskId": "task-001",
+      "deliveredAt": "2026-09-01T08:00:00Z",
+      "toAddress": "u1@amigo.local"
+    },
+    {
+      "id": "ntf-005",
+      "channel": "sms",
+      "kind": "escalation",
+      "toUserId": "u3",
+      "subject": "Escalation: Finance Approval",
+      "body": "Escalated to you (level 1).",
+      "createdAt": "2026-09-01T08:02:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-001",
+      "taskId": "task-001",
+      "deliveredAt": "2026-09-01T08:02:00Z",
+      "toAddress": "+91-90000003"
+    },
+    {
+      "id": "ntf-006",
+      "channel": "push",
+      "kind": "escalation",
+      "toUserId": "u3",
+      "subject": "Escalation",
+      "body": "Level 1 escalation on COM-100001.",
+      "createdAt": "2026-09-01T08:02:00Z",
+      "status": "failed",
+      "instanceId": "inst-c-001",
+      "taskId": "task-001",
+      "error": "gateway 5xx (simulated)",
+      "toAddress": "push:u3"
+    },
+    {
+      "id": "ntf-007",
+      "channel": "in_app",
+      "kind": "workflow_completed",
+      "toUserId": "u7",
+      "subject": "Case completed: COM-100003",
+      "body": "Case moved to completed.",
+      "createdAt": "2026-08-31T10:12:00Z",
+      "status": "read",
+      "instanceId": "inst-c-003",
+      "taskId": null
+    },
+    {
+      "id": "ntf-008",
+      "channel": "in_app",
+      "kind": "needs_attention",
+      "toUserId": "u1",
+      "subject": "Case needs attention: COM-100004",
+      "body": "System task failed: Create Work Order",
+      "createdAt": "2026-09-01T06:10:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-004",
+      "taskId": null,
+      "deliveredAt": "2026-09-01T06:10:00Z"
+    },
+    {
+      "id": "ntf-009",
+      "channel": "email",
+      "kind": "needs_attention",
+      "toUserId": "u1",
+      "subject": "Case needs attention: COM-100004",
+      "body": "System task failed after 3 attempts.",
+      "createdAt": "2026-09-01T06:10:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-004",
+      "taskId": null,
+      "deliveredAt": "2026-09-01T06:10:00Z",
+      "toAddress": "u1@amigo.local"
+    },
+    {
+      "id": "ntf-010",
+      "channel": "in_app",
+      "kind": "workflow_cancelled",
+      "toUserId": "u7",
+      "subject": "Case cancelled: COM-100005",
+      "body": "recalled by initiator",
+      "createdAt": "2026-09-01T04:40:00Z",
+      "status": "read",
+      "instanceId": "inst-c-005",
+      "taskId": null
+    },
+    {
+      "id": "ntf-011",
+      "channel": "email",
+      "kind": "task_assigned",
+      "toUserId": "u2",
+      "subject": "New task: Triage",
+      "body": "You have been assigned Triage on case COM-100006.",
+      "createdAt": "2026-09-01T08:45:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-006",
+      "taskId": "task-004",
+      "deliveredAt": "2026-09-01T08:45:00Z",
+      "toAddress": "u2@amigo.local"
+    },
+    {
+      "id": "ntf-012",
+      "channel": "in_app",
+      "kind": "sla_breach",
+      "toUserId": "u2",
+      "subject": "SLA breached: Triage",
+      "body": "Your task has breached its SLA.",
+      "createdAt": "2026-09-01T08:59:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-006",
+      "taskId": "task-004",
+      "deliveredAt": "2026-09-01T08:59:00Z"
+    },
+    {
+      "id": "ntf-013",
+      "channel": "in_app",
+      "kind": "task_assigned",
+      "toUserId": "u3",
+      "subject": "New task: Manager Approval",
+      "body": "Leave request from Rahul awaits your approval.",
+      "createdAt": "2026-09-01T08:00:00Z",
+      "status": "delivered",
+      "instanceId": "inst-l-001",
+      "taskId": "task-006",
+      "deliveredAt": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "ntf-014",
+      "channel": "email",
+      "kind": "workflow_completed",
+      "toUserId": "u8",
+      "subject": "Case completed: LV-200002",
+      "body": "Your leave request has been approved.",
+      "createdAt": "2026-08-30T09:13:00Z",
+      "status": "delivered",
+      "instanceId": "inst-l-002",
+      "taskId": null,
+      "deliveredAt": "2026-08-30T09:13:00Z",
+      "toAddress": "u8@amigo.local"
+    },
+    {
+      "id": "ntf-015",
+      "channel": "sms",
+      "kind": "custom",
+      "toUserId": "u7",
+      "subject": "Complaint COM-100003 closed",
+      "body": "Your complaint has been resolved. Thank you for reporting.",
+      "createdAt": "2026-08-31T10:12:00Z",
+      "status": "delivered",
+      "instanceId": "inst-c-003",
+      "taskId": null,
+      "deliveredAt": "2026-08-31T10:12:00Z",
+      "toAddress": "+91-90000007"
+    }
+  ],
+  "submissions": [
+    {
+      "id": "sub-001",
+      "formId": "complaint-intake",
+      "formVersion": 1,
+      "submittedBy": "u7",
+      "submittedAt": "2026-09-01T04:00:00Z",
+      "data": {
+        "category": "leakage",
+        "district": "Hyderabad",
+        "address": "12/5 Banjara Hills",
+        "description": "Water gushing since morning",
+        "contactPhone": "9876543210"
+      },
+      "instanceId": "inst-c-001",
+      "status": "triggered"
+    },
+    {
+      "id": "sub-002",
+      "formId": "complaint-intake",
+      "formVersion": 1,
+      "submittedBy": "u7",
+      "submittedAt": "2026-08-31T18:00:00Z",
+      "data": {
+        "category": "contamination",
+        "district": "Warangal",
+        "address": "Ward 12"
+      },
+      "instanceId": "inst-c-002",
+      "status": "triggered"
+    },
+    {
+      "id": "sub-003",
+      "formId": "complaint-intake",
+      "formVersion": 1,
+      "submittedBy": "u7",
+      "submittedAt": "2026-09-01T08:15:00Z",
+      "data": {
+        "category": "billing"
+      },
+      "status": "rejected",
+      "rejectionReason": "missing district and address"
+    },
+    {
+      "id": "sub-004",
+      "formId": "leave-request",
+      "formVersion": 1,
+      "submittedBy": "u2",
+      "submittedAt": "2026-09-01T08:00:00Z",
+      "data": {
+        "leaveType": "casual",
+        "days": 3,
+        "fromDate": "2026-09-10",
+        "toDate": "2026-09-12",
+        "reason": "family function"
+      },
+      "instanceId": "inst-l-001",
+      "status": "triggered"
+    },
+    {
+      "id": "sub-005",
+      "formId": "complaint-intake",
+      "formVersion": 1,
+      "submittedBy": "u7",
+      "submittedAt": "2026-09-01T08:55:00Z",
+      "data": {
+        "category": "no_supply",
+        "district": "Hyderabad"
+      },
+      "status": "received"
+    }
+  ],
+  "idempotency": {}
+}
